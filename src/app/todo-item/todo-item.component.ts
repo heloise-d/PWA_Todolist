@@ -30,7 +30,7 @@ export class TodoItemComponent implements OnInit {
     this.todoService.removeItems(item);
   }
 
-  // Changer l'état de isDone des items
+  // Changer l'état de isDone d'un item
   itemDone(item:TodoItemData, done:boolean){
     this.todoService.setItemsDone(done, item);
   }
@@ -45,22 +45,24 @@ export class TodoItemComponent implements OnInit {
 
 
   
-  private keepLastItemModified : TodoItemData;
+  //private keepLastItemModified : TodoItemData;
 
   editMode(item : TodoItemData, bool:boolean){
-    // Si on entre en mode édition : (donc bool = true)
+    // Si on entre en mode édition : 
     if (bool == true){
       
-      if (this.keepLastItemModified != null){
+      /*if (this.keepLastItemModified != undefined){
         this.keepLastItemModified.editing = false;
       }
-      item.editing = true;
       this.keepLastItemModified = item;
+      */
+      item.editing = true;
     }
 
-    // Si on sort du mode édition : (donc bool = false)
+    // Si on sort du mode édition : 
     else {
       item.editing = false;
+      //this.keepLastItemModified = item;
     }
     
   }

@@ -49,7 +49,9 @@
 
     <!--<button class="clear-completed">Supprimer cochées</button>-->
     <!---->
-    <button class="clear-completed" (click)="deleteItemsDone()">Supprimer cochées</button>
+    <button class="clear-completed" 
+      *ngIf="items.length != countLeft()"
+      (click)="deleteItemsDone()">Supprimer cochées</button>
     <!---->
 
   </footer>

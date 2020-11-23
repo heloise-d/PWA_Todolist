@@ -11,6 +11,7 @@ import {TodoService} from '../todo.service';
 export class TodoListComponent implements OnInit {
 
     private todoList: TodoListData; 
+    filtre:string;
     
     constructor(private todoService: TodoService) {
         todoService.getTodoListDataObservable().subscribe( tdl => this.todoList = tdl );
