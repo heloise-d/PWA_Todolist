@@ -1,0 +1,38 @@
+<div class="view">
+  <input 	class			= "toggle"
+          type			= "checkbox"
+          name			= "fait"
+          [ngModel] = "data.isDone"
+          (ngModelChange)="itemDone(data,$event)"
+  />
+  <!--<label 	class="texte" (dblclick)="changeEditing(data, true)">{{data.label}}</label>-->
+  <label 	class="texte" (dblclick)="editMode(data, true)">{{data.label}}</label>
+  <button class="destroy" (click)="itemDelete(data)"></button>
+</div>
+
+<form>
+  <input  #newTextInput
+          type = "text"
+          class = "edit"
+          name    = "newTextInput"
+          [ngModel]="data.label" 
+          (keyup.enter) = "editMode(data, false); itemLabel(data, newTextInput.value);"
+          
+  />
+</form>
+
+<!--
+<form>
+  <input  #newTextInput
+          name    = "newTextInput"
+          class   = "edit"/>
+</form>
+
+-->
+
+<!--
+<label>{{data.label}}</label>
+<label>{{data|json}}</label>
+-->
+
+<!--<label>{{getlabel()}}</label>-->
