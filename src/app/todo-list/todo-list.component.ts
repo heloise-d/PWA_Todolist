@@ -84,4 +84,15 @@ export class TodoListComponent implements OnInit {
         this.filter = filter;
     }
 
+    // Définit l'ensemble des items comme étant terminés / non terminés selon le cas
+    togleAll(){
+        let isDoneItem:boolean = true; // Par défaut, tous les attributs isDone des items de la liste seront mis à true
+        if (this.countLeft() == 0) isDoneItem = false; // Si tous les items sont déjà terminés, il faudra que tous les attributs isDone des items de la liste soient mis à false
+
+        // Parcours de la todolist et modification de isDone de chaque item
+        this.todoList.items.forEach(element => {
+            element.isDone = isDoneItem;
+        });
+    }
+
 }
