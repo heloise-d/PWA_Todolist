@@ -56,74 +56,8 @@
 </section>
 
   <footer class="info">
-    Double-clic pour éditer un item
+    Double-clic pour éditer une tâche
   </footer>
 
 <hr/>
-
-<!-- Version V1 debug -->
-<!-- Afficher toute la liste des items en dessous -->
-<h2>Debug V1</h2>
-<ul>
-  <li *ngFor="let item of items">
-    {{item|json}}
-  </li>
-</ul>
-
-<!-- Version V2 debug -->
-<!-- Pour chacun des to do, on a une checkBox qui représente le statut des todo : done/undone -->
-<!-- En cliquant sur la checkbox, le json n'est pas modifié (le isDone ne change pas) -->
-<h2>Debug V2</h2>
-<ul>
-  <li *ngFor="let item of items">
-    <input type="checkbox" [ngModel]="item.isDone"/>
-    <label>{{item.label}}</label>
-    <pre>{{item|json}}</pre>
-  </li>
-</ul>
-
-
-<!-- Version V3 debug -->
-<!-- Quand je clique sur la checkbox, je veux que le isDone passe à vrai -->
-<!-- le json est donc modifié -->
-<h2>Debug V3</h2>
-<ul>
-  <li *ngFor="let item of items">
-    <input type="checkbox" [ngModel]="item.isDone" (ngModelChange)="itemDone(item,$event)"/>
-    <label>{{item.label}}</label>
-    <pre>{{item|json}}</pre>
-  </li>
-</ul>
-
-
-<!-- Version V4 debug -->
-<!-- Edition du texte -->
-<h2>Debug V4</h2>
-<ul>
-  <li *ngFor="let item of items">
-    <input type="checkbox" [ngModel]="item.isDone" (ngModelChange)="itemDone(item,$event)"/>
-    <form (submit)="itemLabel(item, newLab.value)">
-      <input type="text" name="label" [ngModel]="item.label" #newLab/>
-    </form>
-    <pre>{{item|json}}</pre>
-  </li>
-</ul>
-
-
-
-<!-- Version V5 debug -->
-<!-- Suppression de l'item -->
-<h2>Debug V5</h2>
-<ul>
-  <li *ngFor="let item of items">
-    <input type="checkbox" [ngModel]="item.isDone" (ngModelChange)="itemDone(item,$event)"/>
-    <form (submit)="itemLabel(item, newLab.value)">
-      <input type="text" name="label" [ngModel]="item.label" #newLab/>
-    </form>
-
-    <button (click)="itemDelete(item)">Remove</button>
-
-    <pre>{{item|json}}</pre>
-  </li>
-</ul>
 

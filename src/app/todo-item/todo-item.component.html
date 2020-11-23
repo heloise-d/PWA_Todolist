@@ -5,7 +5,6 @@
           [ngModel] = "data.isDone"
           (ngModelChange)="itemDone(data,$event)"
   />
-  <!--<label 	class="texte" (dblclick)="changeEditing(data, true)">{{data.label}}</label>-->
   <label 	class="texte" (dblclick)="editMode(data, true)">{{data.label}}</label>
   <button class="destroy" (click)="itemDelete(data)"></button>
 </div>

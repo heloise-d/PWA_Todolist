@@ -20,6 +20,11 @@ export class TodoListComponent implements OnInit {
     }
 
     ngOnInit() {
+        /*for (let i = 0; i < localStorage.length; i++){
+            let clef = localStorage.key(i);
+            let valeur = localStorage.getItem(clef);
+            console.log(clef, valeur);
+            }      */      
     }
     
     // getteurs :
@@ -42,6 +47,7 @@ export class TodoListComponent implements OnInit {
         });
     }
 
+    /*
     // Définir qu'un item est terminé :
     itemDone(item:TodoItemData, done:boolean){
         this.todoService.setItemsDone(done, item);
@@ -50,7 +56,7 @@ export class TodoListComponent implements OnInit {
     // Changer le nom de l'item
     itemLabel(item:TodoItemData, label:string){
         this.todoService.setItemsLabel(label,item);
-    }
+    }*/
 
     // Supprimer un item de la todolist
     itemDelete(item:TodoItemData){
