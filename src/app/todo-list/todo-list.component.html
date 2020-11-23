@@ -1,4 +1,4 @@
-<section class="todoapp" (keyup)="countLeft()" (change)="countLeft()">
+<section class="todoapp">
   <header class="header">
     <h1>{{label}}</h1>
     <form (submit)="appendItem(newTodoInput.value); newTodoInput.value=''">
@@ -33,7 +33,7 @@
 
   </section>
   <footer *ngIf="items.length >= 1" class="footer">
-    <span class="todo-count"><strong>{{itemLeft}}</strong> restantes</span>
+    <span class="todo-count"><strong>{{countLeft()}}</strong> {{countLeft()==1 ? 'restante' : 'restantes'}}</span>
 
     <ul class="filters">
       <li>

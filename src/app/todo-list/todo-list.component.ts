@@ -27,9 +27,6 @@ export class TodoListComponent implements OnInit {
         return this.todoList.items;
     }
     
-    get itemLeft() : number {
-        return this.todoList.itemLeft;
-    }
 
 
     appendItem(label:string){
@@ -71,8 +68,7 @@ export class TodoListComponent implements OnInit {
                 count++;
             }
         });
-
-        this.todoList.itemLeft = count;
+        return count;
     }
 
 }
