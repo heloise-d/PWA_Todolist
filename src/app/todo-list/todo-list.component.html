@@ -15,44 +15,38 @@
             name="toggleAll"
     />
 
-    <!---->
-    <ul class="todo-list">
-        <li *ngFor="let item of items" [ngClass]="item.editing ? 'editing' : (item.isDone ? 'completed': '')">
-        <app-todo-item [data]="item"></app-todo-item>
-      </li>
-    </ul>
-    <!---->
 
-    <!--
-      <ul class="todo-list">
-        <li *ngFor="let item of items">
-          <app-todo-item [data]="item"></app-todo-item>
+    <ul class="todo-list">
+      <div *ngFor="let item of items" >
+        <li
+          *ngIf="filter == 'filterAll' || filter == 'filterActives' && item.isDone==false || filter == 'filterCompleted' && item.isDone==true"
+          [ngClass]="item.editing ? 'editing' : (item.isDone ? 'completed': '')">
+        <app-todo-item [data]="item"></app-todo-item>
         </li>
-      </ul>
-    -->
+      </div>
+    </ul>
+
 
   </section>
-  <footer *ngIf="items.length >= 1" class="footer">
+  <footer *ngIf="items.length > 0" class="footer">
     <span class="todo-count"><strong>{{countLeft()}}</strong> {{countLeft()==1 ? 'restante' : 'restantes'}}</span>
 
     <ul class="filters">
       <li>
-        <a class="filterAll">Tous</a>
+        <a class="filterAll" (click)="changeFilter('filterAll')" [class.selected]="filter === 'filterAll'" >Tous</a>
       </li>
       <li>
-        <a class="filterActives">Actifs</a>
+        <a class="filterActives" (click)="changeFilter('filterActives')" [class.selected]="filter === 'filterActives'">Actifs</a>
       </li>
       <li>
-        <a class="filterCompleted">Complétés</a>
+        <a class="filterCompleted" (click)="changeFilter('filterCompleted')" [class.selected]="filter === 'filterCompleted'">Complétés</a>
       </li>
     </ul>
 
-    <!--<button class="clear-completed">Supprimer cochées</button>-->
-    <!---->
     <button class="clear-completed" 
       *ngIf="items.length != countLeft()"
       (click)="deleteItemsDone()">Supprimer cochées</button>
-    <!---->
+
 
   </footer>
 </section>

@@ -11,15 +11,18 @@ import {TodoService} from '../todo.service';
 export class TodoListComponent implements OnInit {
 
     private todoList: TodoListData; 
-    filtre:string;
+    filter:string; // Filtre permettant de modifier l'affichage de la todolist
     
+    // Constructeur :
     constructor(private todoService: TodoService) {
         todoService.getTodoListDataObservable().subscribe( tdl => this.todoList = tdl );
+        this.filter = "filterAll";
     }
 
     ngOnInit() {
     }
     
+    // getteurs :
     get label(): string {
         return this.todoList.label;
     }
@@ -29,7 +32,7 @@ export class TodoListComponent implements OnInit {
     }
     
 
-
+    // Ajouter un item dans la todolist
     appendItem(label:string){
         if (label =='') return;
         this.todoService.appendItems({
@@ -39,37 +42,46 @@ export class TodoListComponent implements OnInit {
         });
     }
 
+    // Définir qu'un item est terminé :
     itemDone(item:TodoItemData, done:boolean){
         this.todoService.setItemsDone(done, item);
     }
 
+    // Changer le nom de l'item
     itemLabel(item:TodoItemData, label:string){
         this.todoService.setItemsLabel(label,item);
     }
 
-
+    // Supprimer un item de la todolist
     itemDelete(item:TodoItemData){
         this.todoService.removeItems(item);
     }
 
     // Supprimer cochées
     deleteItemsDone(){
+        // Parcourir la liste d'items :
         this.todoList.items.forEach(element => {
-            if (element.isDone == true) {
-                this.itemDelete(element);
+            if (element.isDone == true) { // Si l'attribut isDone de l'item a pour valeur false (donc que l'item est terminé)
+                this.itemDelete(element); // Supprimer l'élément de la todolist
             }
         });
     }
 
-    // Compter le nombre d'items (qui ne sont pas encore faits) restants
+    // Compter le nombre d'items non terminés restants
     countLeft(){
         let count:number = 0;
+        // Parcourir la todolist :
         this.todoList.items.forEach(element => {
             if (element.isDone == false){
                 count++;
             }
         });
         return count;
+    }
+
+    // Changer le filtre :
+    changeFilter(filter:string){
+        this.filter = filter;
     }
 
 }

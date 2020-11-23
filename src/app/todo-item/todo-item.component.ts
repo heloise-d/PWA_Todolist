@@ -17,6 +17,7 @@ export class TodoItemComponent implements OnInit {
   }
 
 
+  // getteurs :
   get label() : string {
     return this.data.label;
   }
@@ -30,39 +31,26 @@ export class TodoItemComponent implements OnInit {
     this.todoService.removeItems(item);
   }
 
-  // Changer l'état de isDone d'un item
+  // Définir qu'un item est terminé :
   itemDone(item:TodoItemData, done:boolean){
     this.todoService.setItemsDone(done, item);
   }
 
-  // Changer le label de l'item
+  // Changer le nom de l'item
   itemLabel(item:TodoItemData, label:string){
     this.todoService.setItemsLabel(label,item);
   }
 
 
-
-
-
-  
-  //private keepLastItemModified : TodoItemData;
-
   editMode(item : TodoItemData, bool:boolean){
     // Si on entre en mode édition : 
     if (bool == true){
-      
-      /*if (this.keepLastItemModified != undefined){
-        this.keepLastItemModified.editing = false;
-      }
-      this.keepLastItemModified = item;
-      */
-      item.editing = true;
+      item.editing = true; // Changer l'attribut editing de l'item en true
     }
 
     // Si on sort du mode édition : 
     else {
-      item.editing = false;
-      //this.keepLastItemModified = item;
+      item.editing = false; // Changer l'attribut editing de l'item en false
     }
     
   }
