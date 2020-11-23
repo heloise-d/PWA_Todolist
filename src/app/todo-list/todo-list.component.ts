@@ -20,11 +20,12 @@ export class TodoListComponent implements OnInit {
     }
 
     ngOnInit() {
-        /*for (let i = 0; i < localStorage.length; i++){
+        // Parcours le localStorage et extrait les items qui y sont stockés
+        for (let i = 0; i < localStorage.length; i++){
             let clef = localStorage.key(i);
-            let valeur = localStorage.getItem(clef);
-            console.log(clef, valeur);
-            }      */      
+            let item = JSON.parse(localStorage.getItem(clef));
+            this.appendItem2(item);
+        }        
     }
     
     // getteurs :
@@ -37,14 +38,25 @@ export class TodoListComponent implements OnInit {
     }
     
 
-    // Ajouter un item dans la todolist
+    // Crée un nouvel item et l'ajoute dans la todolist
     appendItem(label:string){
         if (label =='') return;
-        this.todoService.appendItems({
-            label,
+        let item = {
+            label:label,
             isDone:false,
             editing:false
-        });
+        }
+        this.todoService.appendItems(item);
+
+        // Ajouter l'item dans le localStorage :
+        localStorage.setItem(label, JSON.stringify(item));
+    }
+
+    // Ajoute un item déjà créé dans la todolist
+    appendItem2(item:TodoItemData){
+        if (item.label == '') return;
+        this.todoService.appendItems(item);
+        localStorage.setItem(item.label, JSON.stringify(item));
     }
 
     /*
@@ -61,6 +73,9 @@ export class TodoListComponent implements OnInit {
     // Supprimer un item de la todolist
     itemDelete(item:TodoItemData){
         this.todoService.removeItems(item);
+
+        // Supprimer l'item du localStorage :
+        localStorage.removeItem(item.label);
     }
 
     // Supprimer cochées
@@ -69,6 +84,7 @@ export class TodoListComponent implements OnInit {
         this.todoList.items.forEach(element => {
             if (element.isDone == true) { // Si l'attribut isDone de l'item a pour valeur false (donc que l'item est terminé)
                 this.itemDelete(element); // Supprimer l'élément de la todolist
+                localStorage.removeItem(element.label); // Supprimer l'item du localStorage
             }
         });
     }
@@ -98,6 +114,7 @@ export class TodoListComponent implements OnInit {
         // Parcours de la todolist et modification de isDone de chaque item
         this.todoList.items.forEach(element => {
             element.isDone = isDoneItem;
+            localStorage.setItem(element.label, JSON.stringify(element)); // Mettre à jour l'objet dans le localStorage
         });
     }
 
@@ -106,6 +123,7 @@ export class TodoListComponent implements OnInit {
         // Parcourir la todolist
         this.todoList.items.forEach(element => {
             this.itemDelete(element); // Supprimer l'element
+            localStorage.removeItem(element.label); // Supprimer l'item du localStorage
         });
     }
 

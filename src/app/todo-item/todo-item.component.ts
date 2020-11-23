@@ -27,17 +27,21 @@ export class TodoItemComponent implements OnInit {
 
   // Supprimer un élement de la liste d'éléments
   itemDelete(item:TodoItemData){
-    this.todoService.removeItems(item);
+    this.todoService.removeItems(item); // Supprimer l'item de la todolist
+    localStorage.removeItem(item.label); // Supprimer l'item du localStorage 
   }
 
   // Définir qu'un item est terminé :
   itemDone(item:TodoItemData, done:boolean){
     this.todoService.setItemsDone(done, item);
+    item.isDone = true; localStorage.setItem(item.label, JSON.stringify(item)); // Mettre à jour l'élément dans le localStorage
   }
 
   // Changer le nom de l'item
   itemLabel(item:TodoItemData, label:string){
+    localStorage.removeItem(item.label); // Supprimer l'item du localStorage 
     this.todoService.setItemsLabel(label,item);
+    item.label = label; localStorage.setItem(item.label, JSON.stringify(item)); // Remettre l'élément dans le localStorage
   }
 
 

@@ -61,3 +61,19 @@
 
 <hr/>
 
+<!-- Version V5 debug -->
+<!--
+<h2>Debug V5</h2>
+<ul>
+  <li *ngFor="let item of items">
+    <input type="checkbox" [ngModel]="item.isDone" (ngModelChange)="itemDone(item,$event)"/>
+    <form (submit)="itemLabel(item, newLab.value)">
+      <input type="text" name="label" [ngModel]="item.label" #newLab/>
+    </form>
+
+    <button (click)="itemDelete(item)">Remove</button>
+
+    <pre>{{item|json}}</pre>
+  </li>
+</ul>
+-->
