@@ -95,4 +95,12 @@ export class TodoListComponent implements OnInit {
         });
     }
 
+    // Supprimer tous les items de la todolist
+    deleteAll(){
+        // Parcourir la todolist
+        this.todoList.items.forEach(element => {
+            this.itemDelete(element); // Supprimer l'element
+        });
+    }
+
 }

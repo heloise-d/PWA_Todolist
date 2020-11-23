@@ -47,8 +47,12 @@
     <button class="clear-completed" 
       *ngIf="items.length != countLeft()"
       (click)="deleteItemsDone()">Supprimer cochées</button>
-
   </footer>
+
+  <footer *ngIf="items.length > 0" class="footer">
+    <button (click)="deleteAll()" class="clear-completed">Supprimer toutes les tâches</button>
+  </footer>
+
 </section>
 
   <footer class="info">
