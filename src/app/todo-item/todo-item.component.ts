@@ -16,7 +16,6 @@ export class TodoItemComponent implements OnInit {
   ngOnInit() {
   }
 
-
   // getteurs :
   get label() : string {
     return this.data.label;
