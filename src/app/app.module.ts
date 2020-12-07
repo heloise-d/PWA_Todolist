@@ -8,15 +8,16 @@ import { TodoItemComponent } from './todo-item/todo-item.component';
 import {TodoService} from './todo.service';
 import {FormsModule} from '@angular/forms';
 
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
     AppComponent,
     TodoListComponent,
-    TodoItemComponent
+    TodoItemComponent,
   ],
   imports: [
-    BrowserModule, FormsModule
+    BrowserModule, FormsModule, QRCodeModule
   ],
   providers: [TodoService],
   bootstrap: [AppComponent]

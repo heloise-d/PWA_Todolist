@@ -1,4 +1,4 @@
-<section class="todoapp">
+<section class="todoapp" (click)="listQRcode()" (onkeypressed)="listQRcode()">
   <header class="header">
     <h1>{{label}}</h1>
     <form (submit)="appendItem(newTodoInput.value); newTodoInput.value=''">
@@ -56,7 +56,9 @@
 </section>
 
   <footer class="info">
-    Double-clic pour éditer une tâche
+    Double-cliquez pour éditer une tâche <br/>
+    Scannez le QRCode pour pouvoir accéder à votre TodoList sur votre smartphone.<br/>
+    Avant le scan, n'oubliez pas d'actualiser le QRCode pour qu'il soit mis à jour.
   </footer>
 
 <hr/>
@@ -77,3 +79,9 @@
   </li>
 </ul>
 -->
+
+
+<div class="pageWidth">
+  <qrcode [qrdata]="qrdata" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+  <button class="buttonQR" (click)="listQRcode()">Actualiser QR Code</button>
+</div>

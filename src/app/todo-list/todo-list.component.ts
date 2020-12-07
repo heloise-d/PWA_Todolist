@@ -10,6 +10,8 @@ import {TodoService} from '../todo.service';
 })
 export class TodoListComponent implements OnInit {
 
+    public qrdata: string = null;
+
     private todoList: TodoListData; 
     filter:string; // Filtre permettant de modifier l'affichage de la todolist
     
@@ -17,6 +19,7 @@ export class TodoListComponent implements OnInit {
     constructor(private todoService: TodoService) {
         todoService.getTodoListDataObservable().subscribe( tdl => this.todoList = tdl );
         this.filter = "filterAll";
+
     }
 
     ngOnInit() {
@@ -25,7 +28,10 @@ export class TodoListComponent implements OnInit {
             let clef = localStorage.key(i);
             let item = JSON.parse(localStorage.getItem(clef));
             this.appendItem2(item);
-        }        
+        }  
+        
+        // Pré-initialiser le QRCode :
+        this.listQRcode();
     }
     
     // getteurs :
@@ -55,8 +61,8 @@ export class TodoListComponent implements OnInit {
     // Ajoute un item déjà créé dans la todolist
     appendItem2(item:TodoItemData){
         if (item.label == '') return;
-        this.todoService.appendItems(item);
-        localStorage.setItem(item.label, JSON.stringify(item));
+        this.todoService.appendItems(item); // Ajoute l'item dans la liste
+        localStorage.setItem(item.label, JSON.stringify(item)); // Ajoute l'item dans le local storage
     }
 
     /*
@@ -124,6 +130,17 @@ export class TodoListComponent implements OnInit {
         this.todoList.items.forEach(element => {
             this.itemDelete(element); // Supprimer l'element
             localStorage.removeItem(element.label); // Supprimer l'item du localStorage
+        });
+    }
+
+    // Générer QR Code :
+    listQRcode(){
+        this.qrdata="Taches : ";
+        this.todoList.items.forEach(element => {
+
+            if (element.isDone == false) this.qrdata += " A faire : "
+            else { this.qrdata += "Deja fait : "}
+            this.qrdata += element.label+"\n";
         });
     }
 
