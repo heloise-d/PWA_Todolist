@@ -3,10 +3,11 @@
     <h1>{{label}}</h1>
     <form (submit)="appendItem(newTodoInput.value); newTodoInput.value=''">
       <input  #newTodoInput
+              value = {{textInLabel}} 
               name        = "newTodoInput"
               class       = "new-todo"
               placeholder = "Que faire?"
-              autofocus />
+              autofocus />  
     </form>
   </header>
   <section class="main">
@@ -15,6 +16,22 @@
             name="toggleAll"
             (click)="togleAll()"
     />
+
+    <button
+      *ngIf="isSpeaking"
+      (click)="stopService()"
+      class="voice-recognition-on"
+      name="voiceRecognitionOn"
+      title="Arrêter la reconnaissance vocale"
+    ></button>
+
+    <button
+      *ngIf="!isSpeaking"
+      (click)="startService()"
+      class="voice-recognition-off"
+      name="voiceRecognitionOff"
+      title="Commencer la reconnaissance vocale"
+    ></button>
 
 
     <ul class="todo-list">
@@ -55,10 +72,47 @@
 
 </section>
 
+
+
+  <div class="buttonCadreRetour">
+    <a routerLink="/">
+      <button class="buttonTodoList">Retour au menu</button>
+    </a>
+  </div>
+
+  <br/>
+  <br/>
+  
+  <div class="buttonCadre" *ngIf="!showQR">
+    <button class="buttonTodoList" (click)="listQRcode()" (click)="showOrHideQRCode()"> Afficher QR Code </button>
+  </div>
+  <div class="pageWidth" *ngIf="showQR">
+    <div class="buttonCadre">
+      <button class="buttonTodoList" (click)="listQRcode()" (click)="showOrHideQRCode()">Masquer QR Code</button>
+    </div>
+    <qrcode [qrdata]="qrdata" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+    <div class="buttonCadre">
+      <button class="buttonTodoList" (click)="listQRcode()">Actualiser QR Code</button>
+      </div>
+  </div>
+
+
   <footer class="info">
-    Double-cliquez pour éditer une tâche <br/>
-    Scannez le QRCode pour pouvoir accéder à votre TodoList sur votre smartphone.<br/>
-    Avant le scan, n'oubliez pas d'actualiser le QRCode pour qu'il soit mis à jour.
+    
+
+    <b>Reconnaissance vocale : </b><br/> 
+    La reconnaissance vocale n'est disponible que sur le navigateur Google Chrome. <br/>
+    Pour utiliser la reconnaissance vocale, cliquez sur le micro gris puis parlez. A la fin de votre phrase, cliquez sur le micro vert pour terminer la reconnaissance vocale. Un nouvel item correspondant à vos mots sera ajouté dans votre Todolist <br/>
+    _____________________________________________<br/>
+    <b>QR Code :</b><br/> 
+    Vous pouvez afficher le QR Code correspondant à votre TodoList en cliquant sur le bouton "Afficher QR Code".<br/>
+    Afin d'accéder à votre TodoList sur votre smartphone, scannez le QR Code affiché.<br/>
+    Avant le scan, n'oubliez pas d'actualiser le QR Code en cliquant sur le bouton "Actualiser QR Code" pour qu'il soit mis à jour.<br/>
+    <br/>
+    
+    
+    
+
   </footer>
 
 <hr/>
@@ -80,9 +134,5 @@
 </ul>
 -->
 
-
-<div class="pageWidth">
-  <qrcode [qrdata]="qrdata" [width]="256" [errorCorrectionLevel]="'M'"></qrcode></div>
-<div class="buttonCadre"><button class="buttonQR" (click)="listQRcode()">Actualiser QR Code</button></div>
 
 

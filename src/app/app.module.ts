@@ -10,6 +10,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { QRCodeModule } from 'angularx-qrcode';
 import { HomeComponent } from './home/home.component';
+import { SpeechToTextComponent } from './speech-to-text/speech-to-text.component';
 
 const routes: Routes = [
   { path : 'home', component: HomeComponent },
@@ -25,7 +26,7 @@ const routes: Routes = [
     AppComponent,
     TodoListComponent,
     TodoItemComponent, 
-    HomeComponent
+    HomeComponent, SpeechToTextComponent
 
   ],
   imports: [

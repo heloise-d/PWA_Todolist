@@ -9,7 +9,12 @@
     width: 210px;
 }
 
-.buttonQR {
+.buttonCadreRetour {
+    margin: 0 auto;
+    width: 190px;
+}
+
+.buttonTodoList {
     background-color: #f4511e;
     border: none;
     color: white;
@@ -22,6 +27,46 @@
     display: inline-block;
     text-decoration: none;
     cursor: pointer;
+}
+
+.buttonTodoList:hover {
+    opacity: 1
+}
+
+.info {
+    color:#6A6A67;
+}
+
+
+
+
+  .voice-recognition-on {
+    background-clip: solid, 1px, black;
+    content: "";
+    background:url('assets/micon.png');
+    background-size: 100%;
+    position:relative;
+    float:right;
+    top: -60px;
+    left: -5px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border: none;
   }
-  
-  .buttonQR:hover {opacity: 1}
+
+@keyframes zoominoutsinglefeatured {
+    0% {
+        transform: scale(1,1);
+    }
+    50% {
+        transform: scale(1.2,1.2);
+    }
+    100% {
+        transform: scale(1,1);
+    }
+}
+
+.voice-recognition-on {
+    animation: zoominoutsinglefeatured 1s infinite ;
+}

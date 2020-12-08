@@ -2,24 +2,32 @@ import {Component, OnInit} from '@angular/core';
 import {TodoListData} from '../dataTypes/TodoListData';
 import {TodoItemData} from '../dataTypes/TodoItemData';
 import {TodoService} from '../todo.service';
+import { VoiceRecognitionService } from '../service/voice-recognition.service'
 
 
 @Component({
     selector: 'app-todo-list',
     templateUrl: './todo-list.component.html',
-    styleUrls: ['./todo-list.component.css']
+    styleUrls: ['./todo-list.component.css'],
+    providers: [VoiceRecognitionService] 
 })
 export class TodoListComponent implements OnInit {
-
-    public qrdata: string = null;
-
-    private todoList: TodoListData; 
-    filter:string; // Filtre permettant de modifier l'affichage de la todolist
     
+    private todoList: TodoListData; 
+    public qrdata: string = null; // Initialiser la valeur du QR Code à null
+    filter:string; // Filtre permettant de modifier l'affichage de la todolist
+    public textLabel:string; // Le texte du label de la TodoList
+    public showQR:boolean; // Boolean permettant de définir si le QR Code est affiché ou non
+    public isSpeaking:boolean; // Boolean permettant de définir si l'utilisateur est en train de parler dans le micro ou non.
+
     // Constructeur :
-    constructor(private todoService: TodoService) {
+    constructor(private todoService: TodoService, public service : VoiceRecognitionService) { 
         todoService.getTodoListDataObservable().subscribe( tdl => this.todoList = tdl );
         this.filter = "filterAll";
+        this.service.init() // Initialiser le service pour la reconnaissance vocale
+        this.textLabel=""; // Initialiser le texte de la liste à une chaîne vide
+        this.showQR=false; // Par défaut, cacher le QR Code
+        this.isSpeaking=false; // A l'initialisation, l'utilisateur n'utilise pas la reconnaissance vocale, donc initialisation à false.
 
     }
 
@@ -40,7 +48,13 @@ export class TodoListComponent implements OnInit {
         // Pré-initialiser le QRCode :
         this.listQRcode();
     }
-    
+
+
+    get textInLabel() : string {
+        return this.textLabel;
+    }
+
+
     // getteurs :
     get label(): string {
         return this.todoList.label;
@@ -148,6 +162,11 @@ export class TodoListComponent implements OnInit {
         });
     }
 
+
+    // ----------------------------------------------------------
+    // QR Code :
+    // ----------------------------------------------------------
+
     // Générer QR Code :
     listQRcode(){
         this.qrdata="Taches : ";
@@ -158,5 +177,39 @@ export class TodoListComponent implements OnInit {
             this.qrdata += element.label+"\n";
         });
     }
+
+    // Afficher ou cacher le QR Code :
+    showOrHideQRCode(){
+        if (this.showQR){ // S'il est affiché, masquer le  QR Code :
+            this.showQR = false;
+        } else { // Sinon, afficher le QR Code :
+            this.showQR = true;
+        }
+    }
+
+
+    // ----------------------------------------------------------
+    // Reconnaissance vocale :
+    // ----------------------------------------------------------
+
+    // Fonction permettant de commencer la reconnaissance vocale :
+    startService(){
+        this.isSpeaking = true;
+        this.textLabel = "En train de vous écouter..." // Ecrire au niveau du label de la liste "En train de vous ecouter..." lorsque l'utilisateur lance la reconnaissance vocale
+        this.service.start() // Commencer la reconnaissance vocale
+    }
+    
+    // Fonction permettant d'arrêter la reconnaissance vocale :
+    stopService(){
+        this.isSpeaking = false;
+        this.service.stop(); // Arrêter la reconnaissance vocale
+
+        if (this.service.text != " undefined." && this.service.text != " .") { // Le texte label ne devra pas être équivalent à ces 2 chaînes de caractères
+            this.appendItem(this.service.text); // Ajouter l'item à la liste
+        }
+        this.textLabel = ""; // Remettre le label de la liste à une chaîne vide
+    }
+
+
 
 }
