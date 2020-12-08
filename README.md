@@ -1,3 +1,22 @@
+# Progressiv Web App - TodoList
+
+## Table of Contents
+- [Project Setup](#project-setup)
+  * [Prerequisites](#prerequisites)
+  * [How To Install](#how-to-install)
+  * [How To Run](#how-to-run)
+  
+
+### How To Install
+Download the source code :
+- with git :
+```text
+git clone https://github.com/heloise-d/PWA_Todolist
+```
+
+
+
+
 # PWA-TP3
 
 ## Development server
