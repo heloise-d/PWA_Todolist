@@ -36,7 +36,7 @@ Download the source code :
 ```text
 git clone https://github.com/heloise-d/PWA_Todolist
 ```
-- or by uploading the file directly to github.
+- or by uploading the code directly to github.
 
 Open a terminal window and go to the project root folder.
 
