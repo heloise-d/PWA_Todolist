@@ -1,0 +1,36 @@
+
+
+<section class="todoapp">
+  <header class="header">
+    <h1>TodoList</h1>
+  </header>
+</section>
+
+<body>
+
+  <br/><br/><br/><br/><br/>
+
+  <div id="buttonCadre">
+  <a routerLink="/todolist">
+  <button class="button">
+    Voir ma Todolist
+    <div class="button__horizontal"></div>
+    <div class="button__vertical"></div>
+  </button></a>
+  </div>
+
+  <br/><br/>
+
+  <div id="buttonCadre">
+    <a routerLink="/todolist">
+    <button class="button" (click)="emptyLocalStorage()">
+      Générer une nouvelle TodoList
+      <div class="button__horizontal"></div>
+      <div class="button__vertical"></div>
+    </button></a>
+    </div>
+
+</body>
+
+  
+<router-outlet></router-outlet>

@@ -1,9 +1,13 @@
 .pageWidth{
     max-width: 340px;
-    width:250px;
+    width:256px;
     margin:auto;
 }
 
+.buttonCadre{
+    margin: 0 auto;
+    width: 210px;
+}
 
 .buttonQR {
     background-color: #f4511e;

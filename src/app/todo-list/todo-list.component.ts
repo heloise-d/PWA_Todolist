@@ -3,6 +3,7 @@ import {TodoListData} from '../dataTypes/TodoListData';
 import {TodoItemData} from '../dataTypes/TodoItemData';
 import {TodoService} from '../todo.service';
 
+
 @Component({
     selector: 'app-todo-list',
     templateUrl: './todo-list.component.html',
@@ -23,12 +24,18 @@ export class TodoListComponent implements OnInit {
     }
 
     ngOnInit() {
-        // Parcours le localStorage et extrait les items qui y sont stockés
-        for (let i = 0; i < localStorage.length; i++){
-            let clef = localStorage.key(i);
-            let item = JSON.parse(localStorage.getItem(clef));
-            this.appendItem2(item);
-        }  
+       
+        // Si le nombre d'items présents dans la Todolist n'est pas égal au nombre d'items dans le localstorage, il faut réimporter tous les items du localStorage 
+        if (this.countTotal() != localStorage.length ){
+            this.deleteAllLL(); // Supprimer au préalable tous les items de la Todolist
+
+            // Parcours le localStorage et extrait les items qui y sont stockés
+            for (let i = 0; i < localStorage.length; i++){
+                let clef = localStorage.key(i);
+                let item = JSON.parse(localStorage.getItem(clef));
+                this.appendItem2(item);
+            }  
+        }
         
         // Pré-initialiser le QRCode :
         this.listQRcode();
@@ -65,16 +72,6 @@ export class TodoListComponent implements OnInit {
         localStorage.setItem(item.label, JSON.stringify(item)); // Ajoute l'item dans le local storage
     }
 
-    /*
-    // Définir qu'un item est terminé :
-    itemDone(item:TodoItemData, done:boolean){
-        this.todoService.setItemsDone(done, item);
-    }
-
-    // Changer le nom de l'item
-    itemLabel(item:TodoItemData, label:string){
-        this.todoService.setItemsLabel(label,item);
-    }*/
 
     // Supprimer un item de la todolist
     itemDelete(item:TodoItemData){
@@ -93,6 +90,16 @@ export class TodoListComponent implements OnInit {
                 localStorage.removeItem(element.label); // Supprimer l'item du localStorage
             }
         });
+    }
+
+    // Compter le nombre total d'items :
+    countTotal(){
+        let count:number = 0;
+        // Parcourir la todolist :
+        this.todoList.items.forEach(element => {
+            count++;
+        });
+        return count;
     }
 
     // Compter le nombre d'items non terminés restants
@@ -124,12 +131,20 @@ export class TodoListComponent implements OnInit {
         });
     }
 
-    // Supprimer tous les items de la todolist
+    // Supprimer tous les items de la todolist et du localStorage
     deleteAll(){
         // Parcourir la todolist
         this.todoList.items.forEach(element => {
             this.itemDelete(element); // Supprimer l'element
             localStorage.removeItem(element.label); // Supprimer l'item du localStorage
+        });
+    }
+
+    // Supprimer tous les items de la todolist seulement
+    deleteAllLL(){
+        // Parcourir la todolist
+        this.todoList.items.forEach(element => {
+            this.itemDelete(element); // Supprimer l'element
         });
     }
 
